@@ -31,15 +31,16 @@
 }
 
 /* ── LIGHT THEME ─────────────────────────────────────────────────────────
-   OKLCH-derived: warm cream surface tinted toward the pink hue (rose 12°),
-   never #fff. Pink saturates a touch deeper for AA contrast on cream.
+   OKLCH-derived: warm off-white tinted toward rose 12° but with low chroma
+   (≈.003–.011) so the surface reads as warm cream rather than pink.
+   Pink saturates a touch deeper for AA contrast against the neutral cream.
    Color strategy: Restrained — neutrals carry the surface, pink is the only
    accent (≤10% area), reserved for emphasis, status, dots, CTAs. */
 :root[data-theme="light"]{
   color-scheme: light;
-  --bg:        #fbf6f7;   /* oklch(.985 .006 12)  warm cream */
-  --bg-2:      #f3e8eb;   /* oklch(.945 .013 12)  pale rose-cream */
-  --bg-3:      #ebd9de;   /* oklch(.91  .020 12)  card surface */
+  --bg:        #f9f7f6;   /* oklch(.984 .003 12)  warm off-white */
+  --bg-2:      #efeae8;   /* oklch(.94  .007 12)  cream */
+  --bg-3:      #e4dcd9;   /* oklch(.89  .011 12)  warm beige card surface */
   --ink:       #1a0e16;   /* oklch(.18  .025 350) charcoal w/ pink tint */
   --ink-dim:   #4f3a48;   /* oklch(.42  .022 350) */
   --ink-mute:  #897583;   /* oklch(.60  .018 350) */
@@ -55,7 +56,7 @@
   --card-2:    rgba(255,255,255,0.78);
   --pink-rgb:  215, 43, 91;
   --ink-rgb:   26, 14, 22;
-  --shade-rgb: 251, 246, 247;
+  --shade-rgb: 249, 247, 246;
 }
 
 *{box-sizing:border-box}
@@ -130,9 +131,10 @@ body::after{
   opacity:.035;mix-blend-mode:overlay;pointer-events:none;z-index:1;
 }
 :root[data-theme="light"] body::before{
+  /* Softened pink wash — keeps the warm aura without flooding the cream. */
   background:
-    radial-gradient(700px 500px at 70% 35%, rgba(var(--pink-rgb),.10), transparent 70%),
-    radial-gradient(900px 600px at 12% 90%, rgba(var(--pink-rgb),.05), transparent 70%);
+    radial-gradient(700px 500px at 70% 35%, rgba(var(--pink-rgb),.06), transparent 70%),
+    radial-gradient(900px 600px at 12% 90%, rgba(var(--pink-rgb),.03), transparent 70%);
 }
 :root[data-theme="light"] body::after{ opacity:.022; mix-blend-mode:multiply; }
 

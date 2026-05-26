@@ -3,9 +3,13 @@
    ───────────────────────────────────────────────────────────────────────── */
 
 @media (max-width:1100px){
-  /* Nav */
+  /* Nav — hide desktop links + CTA, swap in the hamburger that opens the
+     mobile-menu overlay. The nav-inner stops shrinking horizontally (the
+     pill is already tight on mobile), so the .scrolled morph reduces to
+     a cheap paint cross-fade (bg/border/shadow) — no layout work. */
   .nav-links{display:none}
-  nav.top.scrolled .nav-inner{max-width:480px}
+  .nav-end .cta{display:none}
+  .nav-burger{display:inline-flex}
 
   /* Hero — stack vertically: ghost (absolute) → portrait → copy.
      Same reading flow as mobile, just with a larger portrait & tape. */
@@ -87,13 +91,10 @@
 }
 
 @media (max-width:720px){
-  /* Nav */
+  /* Nav — slimmer floating pill on small phones */
   nav.top{top:8px;padding:0 10px}
-  .nav-inner{padding:9px 8px 9px 14px;gap:14px}
+  .nav-inner{padding:8px 8px 8px 14px;gap:10px}
   nav.top.scrolled{top:6px}
-  nav.top.scrolled .nav-inner{max-width:360px;padding:7px 8px 7px 12px}
-  .cta{padding:9px 16px;font-size:13px}
-  nav.top.scrolled .cta{padding:8px 14px;font-size:12.5px}
 
   /* Hero — inherits flex-column from 1100px; just shrink proportions */
   .hero{padding-bottom:0}
@@ -113,6 +114,10 @@
   .status-card,.about-card{padding:24px}
   .ach-hero{padding:28px 24px}
   .id-key{width:72px}
+
+  /* Smaller logo frame so the content beside it doesn't choke on phones */
+  .t-item{padding-right:84px}
+  .t-logo{width:68px;height:68px;padding:7px;border-radius:16px}
 }
 
 @media (max-width:640px){

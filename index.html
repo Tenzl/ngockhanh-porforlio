@@ -57,9 +57,28 @@
           </span>
         </button>
         <a class="cta" href="#contact">Contact</a>
+        <button
+          class="nav-burger"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
   </nav>
+
+  <!-- Mobile menu overlay — toggled by .nav-burger via js/header-effects.js -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <a href="#top" style="--i:0">Home</a>
+    <a href="#about" style="--i:1">About</a>
+    <a href="#experience" style="--i:2">Experience</a>
+    <a href="#achievements" style="--i:3">Awards</a>
+    <a href="#skills" style="--i:4">Skills</a>
+    <a class="menu-cta" href="#contact" style="--i:5">Contact</a>
+  </div>
 
   <header class="hero" id="top">
     <div class="wrap">
@@ -173,7 +192,7 @@
               <span class="live-dot" aria-hidden="true"></span>
               <span class="status-label">Currently</span>
             </header>
-            <h3 class="status-h">SCM Customer Experience Intern</h3>
+            <h3 class="status-h">SCM Customer Experience Agent</h3>
             <p class="status-org">A.P. Moller — Maersk · HCMC</p>
             <p class="status-meta tabular">Sep 2025 — Present · On-site</p>
           </article>
@@ -253,18 +272,21 @@
 
           <ol class="timeline">
             <li class="t-item">
+              <div class="t-logo"><img src="public/logo/MAERSK.svg" alt="Maersk" loading="lazy" decoding="async"></div>
               <div class="t-when tabular">Sep 2025 — Present</div>
-              <h4 class="t-title">SCM Customer Experience Intern</h4>
+              <h4 class="t-title">SCM Customer Experience Agent</h4>
               <div class="t-org">A.P. Moller — Maersk</div>
               <div class="t-meta tabular"><span>HCMC · On-site</span></div>
             </li>
             <li class="t-item">
+              <div class="t-logo"><img src="public/logo/RCL.svg" alt="Regional Container Lines" loading="lazy" decoding="async"></div>
               <div class="t-when tabular">Jun — Aug 2025</div>
               <h4 class="t-title">Customer Service Intern</h4>
               <div class="t-org">Regional Container Lines (RCL)</div>
               <div class="t-meta tabular"><span>District 3, HCMC</span></div>
             </li>
             <li class="t-item">
+              <div class="t-logo"><img src="public/logo/pcb.png" alt="PCB GraphTech Vietnam" loading="lazy" decoding="async"></div>
               <div class="t-when tabular">Sep — Oct 2023</div>
               <h4 class="t-title">Telemarketing · Part-time</h4>
               <div class="t-org">PCB GraphTech Vietnam Co., Ltd</div>
@@ -281,12 +303,14 @@
 
           <ol class="timeline">
             <li class="t-item">
+              <div class="t-logo"><img src="public/logo/ueh.png" alt="University of Economics HCMC" loading="lazy" decoding="async"></div>
               <div class="t-when tabular">Sep 2022 — Apr 2026</div>
               <h4 class="t-title">B.Sc. Logistics, Materials &amp; SCM</h4>
               <div class="t-org">University of Economics HCMC (UEH)</div>
               <span class="gpa-pill tabular">GPA 3.96 / 4.0</span>
             </li>
             <li class="t-item">
+              <div class="t-logo"><img src="public/logo/lequydon.png" alt="Le Quy Don High School for the Gifted" loading="lazy" decoding="async"></div>
               <div class="t-when tabular">Aug 2019 — Aug 2022</div>
               <h4 class="t-title">Physical Sciences · Gifted Program</h4>
               <div class="t-org">Le Quy Don High School for the Gifted, Bình Định</div>

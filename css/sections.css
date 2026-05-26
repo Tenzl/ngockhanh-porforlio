@@ -110,12 +110,46 @@ section{position:relative;z-index:2;padding:120px 0}
   content:"";position:absolute;left:5px;top:8px;bottom:8px;width:1.5px;
   background:linear-gradient(180deg,var(--pink),rgba(255,77,119,.05));
 }
-.t-item{position:relative;padding:0 0 30px}
+.t-item{position:relative;padding:0 108px 30px 0}
 .t-item:last-child{padding-bottom:0}
 .t-item::before{
   content:"";position:absolute;left:-21px;top:6px;width:12px;height:12px;border-radius:50%;
   background:var(--bg);border:2px solid var(--pink);
   box-shadow:0 0 0 4px rgba(255,77,119,.13);
+}
+
+/* Logo frame — 56×56 with the logo locked to ~80% of frame via 6px padding
+   (5.6px is 10% of 56). We use pixel padding rather than %: percentage-padding
+   resolves against the containing block's width (here .t-item, ~300–500px),
+   not the .t-logo itself, which would crush the content box to zero.
+
+   White surface so any brand color or wordmark reads cleanly on both themes.
+   Sits at top-right of each t-item so the timeline dot/line on the left stays
+   unobstructed. */
+.t-logo{
+  position:absolute;
+  top:0;right:0;
+  width:88px;height:88px;
+  padding:9px;
+  background:#fff;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:
+    0 6px 16px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.6);
+  transition:transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;
+}
+.t-logo img{
+  display:block;
+  width:100%;height:100%;
+  object-fit:contain;
+  pointer-events:none;
+}
+.t-item:hover .t-logo{
+  transform:translateY(-2px) rotate(-2deg);
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.32),
+    inset 0 1px 0 rgba(255,255,255,.6);
 }
 .t-when{color:var(--pink);font-size:12px;font-weight:600;letter-spacing:.05em;margin-bottom:6px;text-transform:uppercase}
 .t-title{font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:700;line-height:1.25;margin:0 0 4px;letter-spacing:-.005em}
