@@ -60,19 +60,22 @@
   .skill-groups{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 28px}
   .research-head{flex-direction:column;align-items:flex-start;gap:14px}
 
-  /* Achievement rows reflow: name + host stacked, rank+when on one line */
+  /* Achievement rows reflow: name + host stacked, rank+when on one line.
+     Optional .ach-row-docs lane drops to its own row below host. */
   .ach-row{
     grid-template-columns:1fr auto;
     grid-template-areas:
       "rank  when"
       "name  name"
-      "host  host";
+      "host  host"
+      "docs  docs";
     gap:6px 12px;padding:18px 4px;
   }
   .ach-rank{grid-area:rank}
   .ach-when{grid-area:when}
   .ach-name{grid-area:name;font-size:16px}
   .ach-host{grid-area:host}
+  .ach-row-docs{grid-area:docs;margin-top:4px}
 
   .research-row{
     grid-template-columns:38px 1fr;

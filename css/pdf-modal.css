@@ -1,0 +1,207 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   PDF VIEWER MODAL
+   • Any element with [data-pdf-trigger="<url>"] opens this modal on click.
+   • Panel ≈ 70vw × 85vh on desktop, full-bleed on phones.
+   • Spring open/close, focus trap to the close button, ESC + backdrop close.
+
+   Architecture:
+     .pdf-modal           → fixed-position scrim with backdrop blur
+       .pdf-modal-panel   → the framed window holding the PDF
+         .pdf-modal-head  → title + "open in new tab" + close button
+         .pdf-modal-frame → <iframe> rendering the PDF natively
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* Visual hint that a featured card is clickable. The hover lift + border tint
+   already exist on .ach-hero; we just add the cursor + the "View case" cue. */
+.ach-hero[data-pdf-trigger]{cursor:pointer}
+.ach-hero[data-pdf-trigger]:focus-visible{
+  outline:2px solid var(--pink);
+  outline-offset:4px;
+  border-radius:22px;
+}
+.ach-cta{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:18px;
+  color:var(--pink);
+  font-weight:700;font-size:12.5px;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+.ach-cta svg{
+  transition:transform .25s cubic-bezier(.16, 1, .3, 1);
+}
+.ach-hero[data-pdf-trigger]:hover .ach-cta svg{
+  transform:translateX(4px);
+}
+
+/* Multi-case pill row.
+   When one card surfaces several PDFs (rounds, decks, attachments…) we drop
+   the whole-card-clickable pattern and surface explicit pills instead — the
+   user always knows which document a click will open. */
+.ach-cases{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-top:18px;
+}
+.ach-case-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 13px;
+  background:rgba(var(--pink-rgb), .08);
+  border:1px solid rgba(var(--pink-rgb), .22);
+  border-radius:999px;
+  color:var(--pink);
+  font:inherit;
+  font-weight:700;font-size:11.5px;
+  letter-spacing:.06em;text-transform:uppercase;
+  cursor:pointer;
+  transition:
+    background .25s ease,
+    border-color .25s ease,
+    color .2s ease,
+    transform 160ms cubic-bezier(.16, 1, .3, 1);
+}
+.ach-case-btn:hover{
+  background:rgba(var(--pink-rgb), .16);
+  border-color:rgba(var(--pink-rgb), .42);
+}
+.ach-case-btn:active{
+  transform:scale(.96);
+}
+.ach-case-btn:focus-visible{
+  outline:2px solid var(--pink);
+  outline-offset:2px;
+}
+
+/* Compact variant — used inside .ach-list rows where vertical rhythm matters.
+   Smaller padding/type so the table stays tabular even with pills attached. */
+.ach-case-btn.compact{
+  padding:4px 10px;
+  font-size:10.5px;
+  letter-spacing:.05em;
+}
+
+/* List-row attachment lane.
+   Lives as the 5th child of .ach-row (which is a 4-col grid). We span the
+   pills under the name + host area so the rank stays visually anchored. */
+.ach-row-docs{
+  grid-column:2 / -1;
+  margin-top:8px;
+  display:flex;flex-wrap:wrap;gap:6px;
+  /* Pills should NOT inherit the row's translate-on-hover slide direction
+     mid-animation — keep them in the same transform context, no overrides. */
+}
+
+/* ── Scrim ──────────────────────────────────────────────────────────────── */
+.pdf-modal{
+  position:fixed;inset:0;
+  z-index:60;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+  background:rgba(7,6,26,.78);
+  -webkit-backdrop-filter:blur(10px) saturate(140%);
+          backdrop-filter:blur(10px) saturate(140%);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s cubic-bezier(.22, 1, .36, 1);
+}
+.pdf-modal.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* ── Panel ──────────────────────────────────────────────────────────────── */
+.pdf-modal-panel{
+  position:relative;
+  width:min(1100px, 70vw);
+  height:min(900px, 85vh);
+  display:flex;flex-direction:column;
+  background:var(--bg-2);
+  border:1px solid var(--line-strong);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  transform:translateY(20px) scale(.96);
+  transition:transform .45s cubic-bezier(.34, 1.56, .64, 1);
+}
+.pdf-modal.open .pdf-modal-panel{
+  transform:translateY(0) scale(1);
+}
+
+/* ── Header bar ─────────────────────────────────────────────────────────── */
+.pdf-modal-head{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px 12px 18px;
+  border-bottom:1px solid var(--line);
+  background:rgba(var(--ink-rgb), .04);
+}
+.pdf-modal-title{
+  flex:1;
+  font-family:'Bricolage Grotesque', sans-serif;
+  font-weight:700;font-size:14.5px;
+  color:var(--ink);
+  letter-spacing:-.005em;
+  /* truncate on narrow screens so title bar never wraps */
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  min-width:0;
+}
+
+/* ── Buttons (open-in-new-tab + close) ──────────────────────────────────── */
+.pdf-modal-open,
+.pdf-modal-close{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:34px;flex-shrink:0;
+  border-radius:10px;
+  background:rgba(var(--ink-rgb), .06);
+  border:1px solid var(--line);
+  color:var(--ink-dim);
+  cursor:pointer;
+  text-decoration:none;
+  transition:
+    background .2s ease,
+    color .2s ease,
+    transform 160ms cubic-bezier(.16, 1, .3, 1);
+}
+.pdf-modal-open:hover,
+.pdf-modal-close:hover{
+  background:rgba(var(--pink-rgb), .14);
+  color:var(--pink);
+  border-color:rgba(var(--pink-rgb), .28);
+}
+.pdf-modal-open:active,
+.pdf-modal-close:active{
+  transform:scale(.92);
+}
+.pdf-modal-open:focus-visible,
+.pdf-modal-close:focus-visible{
+  outline:2px solid var(--pink);
+  outline-offset:2px;
+}
+
+/* ── The actual PDF surface ─────────────────────────────────────────────── */
+.pdf-modal-frame{
+  flex:1;
+  width:100%;
+  border:0;
+  background:#fff;
+}
+
+/* ── Mobile: full-bleed sheet ───────────────────────────────────────────── */
+@media (max-width: 720px){
+  .pdf-modal{padding:12px}
+  .pdf-modal-panel{
+    width:100%;
+    height:92dvh;
+    border-radius:14px;
+  }
+  .pdf-modal-head{padding:10px 10px 10px 14px}
+  .pdf-modal-title{font-size:13.5px}
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce){
+  .pdf-modal,
+  .pdf-modal-panel{
+    transition:opacity .2s ease;
+  }
+  .pdf-modal-panel{transform:none}
+}

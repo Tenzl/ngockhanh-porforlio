@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="css/skills.css">
   <link rel="stylesheet" href="css/marquee.css">
   <link rel="stylesheet" href="css/contact.css">
+  <link rel="stylesheet" href="css/pdf-modal.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/theme-light.css">
 </head>
@@ -357,13 +358,26 @@
       </div>
 
       <div class="ach-featured stagger">
-        <article class="ach-hero">
+        <article
+          class="ach-hero"
+          data-pdf-trigger="public/competition/ibec/IBQ.pdf"
+          data-pdf-title="IBEC HUB 2025 · The Alpha — Round 3 deck"
+          role="button"
+          tabindex="0"
+          aria-haspopup="dialog"
+        >
           <div class="ach-hero-meta">
-            <span class="ach-trophy">Champion</span>
-            <span class="ach-year tabular">Oct 2024</span>
+            <span class="ach-trophy">Excellent Project</span>
+            <span class="ach-year tabular">Jun 2025</span>
           </div>
-          <h3>UEH Debate 2024 — English League</h3>
-          <p>Took the championship in the IBM Faculty English Debate League with team <em>Kiwibox</em>.</p>
+          <h3>IBEC HUB 2025 — ESG Co., Ltd case</h3>
+          <p>Built the case for renewable feedstock + end-to-end traceability in an ESG-led supply chain with team <em>The Alpha</em>.</p>
+          <span class="ach-cta">
+            View case
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>
+            </svg>
+          </span>
         </article>
 
         <article class="ach-hero alt">
@@ -373,16 +387,33 @@
           </div>
           <h3>Supply Chain Champion 2024</h3>
           <p>Analyzed Unilever's chain end-to-end, mapped bottlenecks and proposed short-, mid- and long-term interventions.</p>
+          <div class="ach-cases">
+            <button
+              type="button"
+              class="ach-case-btn"
+              data-pdf-trigger="public/competition/scc/r2.pdf"
+              data-pdf-title="Supply Chain Champion 2024 — Round 2"
+              aria-haspopup="dialog"
+            >Round 2</button>
+            <button
+              type="button"
+              class="ach-case-btn"
+              data-pdf-trigger="public/competition/scc/r3.pdf"
+              data-pdf-title="Supply Chain Champion 2024 — Round 3"
+              aria-haspopup="dialog"
+            >Round 3</button>
+            <button
+              type="button"
+              class="ach-case-btn"
+              data-pdf-trigger="public/competition/scc/r4.pdf"
+              data-pdf-title="Supply Chain Champion 2024 — Final"
+              aria-haspopup="dialog"
+            >Final</button>
+          </div>
         </article>
       </div>
 
       <ul class="ach-list stagger">
-        <li class="ach-row">
-          <span class="ach-rank pink">Excellent Project</span>
-          <span class="ach-name">IBEC HUB 2025 — ESG Co., Ltd case</span>
-          <span class="ach-host">Renewable feedstock + traceability · Team The Alpha</span>
-          <span class="ach-when tabular">Jun 2025</span>
-        </li>
         <li class="ach-row">
           <span class="ach-rank">Top 8</span>
           <span class="ach-name">B-LEAD 2025 — Supply Chain function</span>
@@ -394,18 +425,54 @@
           <span class="ach-name">Social Pioneers 2024</span>
           <span class="ach-host">NEU · 750+ teams nationwide</span>
           <span class="ach-when tabular">Aug 2024</span>
+          <div class="ach-row-docs">
+            <button type="button" class="ach-case-btn compact"
+              data-pdf-trigger="public/competition/social_pioneer/r2.pdf"
+              data-pdf-title="Social Pioneers 2024 — Round 2"
+              aria-haspopup="dialog">Round 2</button>
+            <button type="button" class="ach-case-btn compact"
+              data-pdf-trigger="public/competition/social_pioneer/r3.pdf"
+              data-pdf-title="Social Pioneers 2024 — Round 3"
+              aria-haspopup="dialog">Round 3</button>
+          </div>
         </li>
         <li class="ach-row">
           <span class="ach-rank">Top 10</span>
           <span class="ach-name">Become The Best Seller 2024 — "Limitless"</span>
           <span class="ach-host">Team The Dealmakers</span>
           <span class="ach-when tabular">May 2024</span>
+          <div class="ach-row-docs">
+            <button type="button" class="ach-case-btn compact"
+              data-pdf-trigger="public/competition/become_the_best/r2.pdf"
+              data-pdf-title="Become The Best Seller 2024 — Round 2"
+              aria-haspopup="dialog">Round 2</button>
+            <button type="button" class="ach-case-btn compact"
+              data-pdf-trigger="public/competition/become_the_best/r3.pdf"
+              data-pdf-title="Become The Best Seller 2024 — Round 3"
+              aria-haspopup="dialog">Round 3</button>
+          </div>
+        </li>
+        <li class="ach-row">
+          <span class="ach-rank pink">Champion</span>
+          <span class="ach-name">UEH Debate 2024 — English League</span>
+          <span class="ach-host">IBM Faculty · Team Kiwibox</span>
+          <span class="ach-when tabular">Oct 2024</span>
         </li>
         <li class="ach-row">
           <span class="ach-rank">Top 20</span>
           <span class="ach-name">Battle of Minds 2024</span>
           <span class="ach-host">BAT Vietnam · Team GoDemand</span>
           <span class="ach-when tabular">Oct 2024</span>
+          <div class="ach-row-docs">
+            <button type="button" class="ach-case-btn compact"
+              data-pdf-trigger="public/competition/battle_of_mind/PROPOSAL.pdf"
+              data-pdf-title="Battle of Minds 2024 — Proposal"
+              aria-haspopup="dialog">Proposal</button>
+            <button type="button" class="ach-case-btn compact"
+              data-pdf-trigger="public/competition/battle_of_mind/Pitch.pdf"
+              data-pdf-title="Battle of Minds 2024 — Pitch"
+              aria-haspopup="dialog">Pitch</button>
+          </div>
         </li>
         <li class="ach-row">
           <span class="ach-rank">Top 20</span>
@@ -586,8 +653,48 @@
     </div>
   </footer>
 
+  <!-- PDF viewer modal — opened by any [data-pdf-trigger] via js/pdf-modal.js -->
+  <div class="pdf-modal" id="pdf-modal" aria-hidden="true">
+    <div
+      class="pdf-modal-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="pdf-modal-title"
+    >
+      <header class="pdf-modal-head">
+        <span class="pdf-modal-title" id="pdf-modal-title">Project document</span>
+        <a
+          class="pdf-modal-open"
+          href="#"
+          target="_blank"
+          rel="noopener"
+          aria-label="Open in new tab"
+          title="Open in new tab"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 3h7v7"/>
+            <path d="M21 3l-9 9"/>
+            <path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/>
+          </svg>
+        </a>
+        <button
+          class="pdf-modal-close"
+          type="button"
+          aria-label="Close PDF viewer"
+          title="Close"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 6L6 18"/><path d="M6 6l12 12"/>
+          </svg>
+        </button>
+      </header>
+      <iframe class="pdf-modal-frame" title="Project document"></iframe>
+    </div>
+  </div>
+
   <script src="js/header-effects.js"></script>
   <script src="js/scroll-reveal.js"></script>
   <script src="js/theme-toggle.js"></script>
+  <script src="js/pdf-modal.js"></script>
 </body>
 </html>
