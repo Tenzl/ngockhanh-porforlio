@@ -1,0 +1,150 @@
+:root{
+  color-scheme: dark;
+  --bg:        #07061a;
+  --bg-2:      #0c0a24;
+  --bg-3:      #131233;
+  --ink:       #ffffff;
+  --ink-dim:   #b9b8d3;
+  --ink-mute:  #6f6e8f;
+  --pink:      #ff4d77;
+  --pink-2:    #ff7a99;
+  --pink-soft: #ffb1c4;
+  --blue:      #3aa8d8;
+  --blue-2:    #54c1ec;
+  --line:        rgba(255,255,255,0.08);
+  --line-soft:   rgba(255,255,255,0.06);
+  --line-strong: rgba(255,255,255,0.14);
+  --card:      rgba(255,255,255,0.04);
+  --card-2:    rgba(255,255,255,0.06);
+
+  /* Pink RGB triplet (used in rgba() for theme-aware glows) */
+  --pink-rgb:   255, 77, 119;
+  /* Ink RGB triplet (used in rgba() for theme-aware shadows/borders) */
+  --ink-rgb:    255, 255, 255;
+  --shade-rgb:  7, 6, 26;
+
+  /* Easing curves — strong custom variants per design-eng best practice.
+     Built-in CSS easings lack punch; these have intentional weight. */
+  --ease-out:    cubic-bezier(.23, 1, .32, 1);     /* responsive UI feedback */
+  --ease-in-out: cubic-bezier(.77, 0, .175, 1);    /* on-screen movement */
+  --ease-drawer: cubic-bezier(.32, .72, 0, 1);     /* iOS-style drawer */
+}
+
+/* ── LIGHT THEME ─────────────────────────────────────────────────────────
+   OKLCH-derived: warm cream surface tinted toward the pink hue (rose 12°),
+   never #fff. Pink saturates a touch deeper for AA contrast on cream.
+   Color strategy: Restrained — neutrals carry the surface, pink is the only
+   accent (≤10% area), reserved for emphasis, status, dots, CTAs. */
+:root[data-theme="light"]{
+  color-scheme: light;
+  --bg:        #fbf6f7;   /* oklch(.985 .006 12)  warm cream */
+  --bg-2:      #f3e8eb;   /* oklch(.945 .013 12)  pale rose-cream */
+  --bg-3:      #ebd9de;   /* oklch(.91  .020 12)  card surface */
+  --ink:       #1a0e16;   /* oklch(.18  .025 350) charcoal w/ pink tint */
+  --ink-dim:   #4f3a48;   /* oklch(.42  .022 350) */
+  --ink-mute:  #897583;   /* oklch(.60  .018 350) */
+  --pink:      #d72b5b;   /* oklch(.58  .22  12)  AA on cream */
+  --pink-2:    #f0507d;   /* oklch(.68  .18  12) */
+  --pink-soft: #a51a44;   /* oklch(.46  .20  12)  for inline em emphasis */
+  --blue:      #1f7da6;
+  --blue-2:    #2a9bcb;
+  --line:        rgba(26,14,22,0.10);
+  --line-soft:   rgba(26,14,22,0.06);
+  --line-strong: rgba(26,14,22,0.18);
+  --card:      rgba(255,255,255,0.55);
+  --card-2:    rgba(255,255,255,0.78);
+  --pink-rgb:  215, 43, 91;
+  --ink-rgb:   26, 14, 22;
+  --shade-rgb: 251, 246, 247;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ── UTILITIES ───────────────────────────────────────────────────────── */
+
+/* Tabular numbers — vital for stats, dates, GPAs (no jitter on hover) */
+.tabular{font-variant-numeric:tabular-nums;letter-spacing:-.005em}
+
+/* Live status indicator */
+.live-dot{
+  display:inline-block;width:8px;height:8px;border-radius:50%;
+  background:var(--pink);
+  box-shadow:0 0 0 4px rgba(var(--pink-rgb),.18);
+  animation:live-pulse 1.8s ease-in-out infinite;
+  vertical-align:middle;
+}
+@keyframes live-pulse{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%    {opacity:.55;transform:scale(.92)}
+}
+
+/* Scroll-reveal: single block fades + lifts */
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+  will-change:transform,opacity;
+}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* Scroll-reveal: stagger children */
+.stagger > *{
+  opacity:0;transform:translateY(20px);
+  transition:opacity .65s cubic-bezier(.16,1,.3,1), transform .65s cubic-bezier(.16,1,.3,1);
+  will-change:transform,opacity;
+}
+.stagger.in > *{opacity:1;transform:translateY(0)}
+.stagger.in > *:nth-child(1){transition-delay:0ms}
+.stagger.in > *:nth-child(2){transition-delay:80ms}
+.stagger.in > *:nth-child(3){transition-delay:160ms}
+.stagger.in > *:nth-child(4){transition-delay:240ms}
+.stagger.in > *:nth-child(5){transition-delay:320ms}
+.stagger.in > *:nth-child(6){transition-delay:400ms}
+.stagger.in > *:nth-child(7){transition-delay:480ms}
+.stagger.in > *:nth-child(8){transition-delay:560ms}
+.stagger.in > *:nth-child(9){transition-delay:640ms}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .reveal,.stagger > *{transition:none;transform:none;opacity:1}
+  .live-dot{animation:none}
+}
+
+/* Decorative noise + radial glow — theme-aware via --pink-rgb */
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background:
+    radial-gradient(700px 500px at 70% 35%, rgba(var(--pink-rgb),.12), transparent 70%);
+  pointer-events:none;z-index:0;
+  transition:background .4s ease;
+}
+body::after{
+  content:"";
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+  opacity:.035;mix-blend-mode:overlay;pointer-events:none;z-index:1;
+}
+:root[data-theme="light"] body::before{
+  background:
+    radial-gradient(700px 500px at 70% 35%, rgba(var(--pink-rgb),.10), transparent 70%),
+    radial-gradient(900px 600px at 12% 90%, rgba(var(--pink-rgb),.05), transparent 70%);
+}
+:root[data-theme="light"] body::after{ opacity:.022; mix-blend-mode:multiply; }
+
+/* ── VIEW-TRANSITION ─────────────────────────────────────────────────────
+   Smooth crossfade when toggling theme on supported browsers. */
+::view-transition-old(root),
+::view-transition-new(root){
+  animation-duration:280ms;
+  animation-timing-function:var(--ease-out);
+}
+
+.wrap{max-width:1320px;margin:0 auto;padding:0 40px;position:relative;z-index:2}
+
+/* Caveat handwriting */
+.handwrite{font-family:'Caveat',cursive;color:var(--blue-2);font-size:24px;font-weight:600}

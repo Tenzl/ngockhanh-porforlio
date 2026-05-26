@@ -1,0 +1,261 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   HERO — orchestrated entry, strong custom easing, craft-grade buttons.
+   Tape stack kept (per request); everything else animates in cohesively.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.hero{position:relative;min-height:600px;padding:12px 0 0;overflow:hidden}
+.hero-stage{position:relative;height:600px}
+
+/* Bottom vignette — dark gradient fades up từ đáy. Sit trên tape (z:5) +
+   portrait (z:6), dưới hero-content (z:10). */
+.hero::after{
+  content:"";
+  position:absolute;left:0;right:0;bottom:0;
+  height:clamp(160px, 32vh, 260px);
+  background:linear-gradient(to top,
+    rgba(7,6,26,.78) 0%,
+    rgba(7,6,26,.42) 38%,
+    rgba(7,6,26,.12) 72%,
+    transparent 100%);
+  pointer-events:none;z-index:7;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   LAYER 1 — Ghost background text
+   ───────────────────────────────────────────────────────────────────────── */
+.ghost-wrap{
+  position:absolute;left:0;right:0;top:24px;
+  text-align:center;z-index:0;pointer-events:none;user-select:none;
+  line-height:.82;
+}
+.ghost-title{
+  display:block;
+  font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+  font-size:clamp(88px,13vw,210px);letter-spacing:-.035em;
+  background:linear-gradient(180deg, rgba(255,77,119,.7) 0%, rgba(255,77,119,.35) 40%, rgba(255,77,119,.04) 90%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.ghost-title.muted{
+  background:linear-gradient(180deg, rgba(255,77,119,.28) 0%, rgba(255,77,119,.08) 60%, rgba(255,77,119,0) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin-top:-.05em;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   LAYER 2 — Portrait
+   ───────────────────────────────────────────────────────────────────────── */
+.hero-portrait{
+  position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  width:640px;height:600px;z-index:6;pointer-events:none;
+}
+.portrait-bg{
+  position:absolute;inset:auto 0 0 0;height:70%;
+  background:radial-gradient(60% 90% at 50% 100%, rgba(255,77,119,.55), transparent 60%);
+  filter:blur(20px);
+}
+.portrait-photo{
+  position:absolute;left:50%;bottom:0;
+  transform:translateX(-50%);
+  width:600px;height:auto;
+  object-fit:contain;object-position:bottom center;
+  filter:drop-shadow(0 -10px 30px rgba(11,10,26,.45))
+         drop-shadow(0 28px 56px rgba(255,77,119,.38));
+  pointer-events:none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   LAYER 3 — Tape stack (KEPT — only added subtle stage-in)
+   ───────────────────────────────────────────────────────────────────────── */
+.tape-stack{
+  position:absolute;
+  right:-220px;top:60px;
+  transform:rotate(-22deg);transform-origin:right top;
+  display:flex;flex-direction:column;gap:11px;
+  pointer-events:none;z-index:5;width:1200px;
+  -webkit-mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.15) 14%, #000 32%, #000 100%);
+          mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.15) 14%, #000 32%, #000 100%);
+}
+.tape{
+  overflow:hidden;white-space:nowrap;
+  padding:11px 0;border-radius:4px;
+  font-family:'Bricolage Grotesque',sans-serif;font-weight:700;
+  font-size:36px;letter-spacing:-.005em;
+  box-shadow:0 12px 32px rgba(0,0,0,.25);
+}
+.tape-track{
+  display:inline-flex;align-items:center;gap:32px;
+  /* Constant motion → linear (Emil) */
+  animation:tape-scroll 22s linear infinite;
+  will-change:transform;
+}
+.tape-track.rev{animation-direction:reverse;animation-duration:28s}
+.tape-track.slow{animation-duration:34s}
+.tape-track .ast{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:24px;opacity:.85}
+.tape-pink{background:linear-gradient(90deg,#ff3d6e,#ff86a4);color:#fff}
+.tape-dark{background:#0a0a18;color:#e4e3f3;border:1px solid rgba(255,255,255,.07)}
+.tape-grad{background:linear-gradient(90deg,#ff86a4,#ff3d6e);color:#fff}
+@keyframes tape-scroll{
+  from{transform:translateX(0)}
+  to  {transform:translateX(-50%)}
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   LAYER 4 — Hero text content
+   ───────────────────────────────────────────────────────────────────────── */
+.hero-content{
+  position:absolute;left:0;bottom:8px;z-index:10;max-width:680px;
+}
+
+/* Eyebrow — live status pill */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  color:var(--pink);font-weight:600;font-size:13.5px;letter-spacing:.04em;
+  margin-bottom:18px;
+  padding:7px 14px;border-radius:999px;
+  background:rgba(255,77,119,.10);
+  border:1px solid rgba(255,77,119,.25);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  /* Liquid glass inner refraction */
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+}
+.eyebrow .live-dot{width:7px;height:7px}
+
+/* H1 — curtain reveal: each line clipped, text slides up from below */
+.h1{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:700;font-size:clamp(40px,5.4vw,82px);
+  line-height:1.02;letter-spacing:-.028em;
+  color:#fff;margin:0 0 28px;
+  text-shadow:0 4px 30px rgba(11,10,26,.6);
+  text-wrap:balance;
+}
+.h1 em{font-style:normal;color:var(--pink-soft)}
+
+.h1-line{
+  display:block;
+  /* Clip line so curtain reveal works. Padding/margin trick keeps
+     descenders (g, p, y) visible without affecting layout rhythm. */
+  overflow:hidden;
+  padding-block:.08em;
+  margin-block:-.08em;
+}
+.h1-text{display:block}
+
+/* Hero actions — Emil's button principles */
+.hero-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+
+.ghost-btn{
+  display:inline-flex;align-items:center;
+  border:1.5px solid rgba(255,255,255,.18);
+  padding:14px 28px;border-radius:999px;
+  font-weight:600;color:#fff;font-size:15px;
+  background:rgba(11,10,26,.4);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  cursor:pointer;
+  /* Specify exact properties — never `all`. UI feedback under 200ms. */
+  transition:transform 160ms var(--ease-out),
+             border-color 200ms ease,
+             color 200ms ease;
+}
+.ghost-btn:hover{border-color:var(--pink);color:var(--pink)}
+.ghost-btn:active{transform:scale(.97)}  /* Emil: 0.95-0.98 subtle press */
+
+.hero-link{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--ink-dim);font-weight:600;font-size:15px;
+  padding:14px 6px;
+  transition:color 200ms ease, gap 220ms var(--ease-out);
+}
+.hero-link svg{
+  transition:transform 220ms var(--ease-out);
+}
+.hero-link:hover{color:var(--pink);gap:12px}
+.hero-link:hover svg{transform:translateX(4px)}
+.hero-link:active{transform:scale(.97)}
+.hero-link:active svg{transform:translateX(2px)}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Scroll cue — decorative, bottom-right
+   ───────────────────────────────────────────────────────────────────────── */
+.scroll-cue{
+  position:absolute;right:8px;bottom:14px;z-index:9;
+  display:inline-flex;align-items:center;gap:14px;
+  color:var(--ink-mute);
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;
+  transition:color 200ms ease;
+}
+.scroll-cue:hover{color:var(--pink)}
+.scroll-cue-track{
+  position:relative;display:block;
+  width:1.5px;height:36px;border-radius:2px;
+  background:rgba(255,255,255,.14);overflow:hidden;
+}
+.scroll-cue-thumb{
+  position:absolute;left:0;width:100%;height:14px;top:-14px;
+  background:var(--pink);border-radius:2px;
+  /* Constant decorative motion → linear; reset cleanly */
+  animation:scroll-cue-fall 2s var(--ease-in-out) infinite;
+}
+@keyframes scroll-cue-fall{
+  0%   {transform:translateY(0)}
+  100% {transform:translateY(50px)} /* track height + thumb height + gap */
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   ENTRY CHOREOGRAPHY (page-load, one-shot, gated by reduced-motion)
+   ───────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference){
+
+  /* Background layers — fade gently while content arrives */
+  .ghost-wrap{
+    animation:ghost-rise 1300ms var(--ease-out) both;
+  }
+  .tape-stack{
+    animation:tape-stack-in 900ms var(--ease-out) 80ms both;
+  }
+  .portrait-photo{
+    animation:portrait-rise 1100ms var(--ease-drawer) 180ms both;
+  }
+
+  /* H1 curtain reveal — text slides up from below clipped line */
+  .h1-text{
+    animation:h1-text-rise 900ms var(--ease-out) both;
+    animation-delay:calc(var(--i, 0) * 80ms + 220ms);
+  }
+
+  /* Generic stagger riser — eyebrow, actions, scroll cue */
+  .hero-anim{
+    animation:hero-rise 700ms var(--ease-out) both;
+    animation-delay:calc(var(--i, 0) * 80ms + 100ms);
+  }
+}
+
+@keyframes ghost-rise{
+  from{opacity:0;transform:translateY(28px) scale(.97)}
+  to  {opacity:1;transform:translateY(0)    scale(1)}
+}
+@keyframes tape-stack-in{
+  /* opacity-only — preserves the static rotate(-22deg) transform */
+  from{opacity:0}
+  to  {opacity:1}
+}
+@keyframes portrait-rise{
+  /* Preserves translateX(-50%) at every keyframe so centering survives */
+  from{opacity:0;transform:translateX(-50%) translateY(22px) scale(.97)}
+  to  {opacity:1;transform:translateX(-50%) translateY(0)    scale(1)}
+}
+@keyframes h1-text-rise{
+  /* Curtain — Emil "never animate from scale(0)"; this is a translate,
+     starts visible-but-displaced (105% below), settles to 0 */
+  from{transform:translateY(105%)}
+  to  {transform:translateY(0)}
+}
+@keyframes hero-rise{
+  from{opacity:0;transform:translateY(14px)}
+  to  {opacity:1;transform:translateY(0)}
+}
+
+/* Reduced motion — skip translation/scale, keep elements visible */
+@media (prefers-reduced-motion: reduce){
+  .scroll-cue-thumb{animation:none;transform:translateY(18px)}
+}

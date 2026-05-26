@@ -1,0 +1,243 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   LIGHT THEME — component overrides
+   Activated when html[data-theme="light"]. Most colors flow from the root
+   variables in base.css (var(--bg), var(--ink), var(--pink)…). This file
+   only handles places that hard-coded white or dark rgba() values.
+
+   Color strategy: Restrained — neutrals (warm cream tinted toward rose 12°)
+   carry the surface; pink is the only accent, ≤10% of the page area, used
+   for live status, links, CTAs, dots, and section tags. No #fff anywhere.
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── NAV — light liquid-glass ─────────────────────────────────────────── */
+[data-theme="light"] .nav-inner{
+  background:linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.55));
+  border-color:rgba(var(--ink-rgb),0.10);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.85),
+    inset 0 -1px 0 rgba(var(--ink-rgb),0.04),
+    0 10px 28px rgba(var(--ink-rgb),0.08);
+}
+[data-theme="light"] nav.top.scrolled .nav-inner{
+  background:linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.78));
+  border-color:rgba(var(--ink-rgb),0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.9),
+    inset 0 -1px 0 rgba(var(--ink-rgb),0.06),
+    0 14px 38px rgba(var(--ink-rgb),0.10),
+    0 4px 16px rgba(var(--pink-rgb),0.18);
+}
+[data-theme="light"] .brand-mark{
+  box-shadow:0 8px 18px rgba(var(--pink-rgb),.40), inset 0 0 0 1px rgba(255,255,255,.25);
+}
+[data-theme="light"] .nav-links a:hover,
+[data-theme="light"] .nav-links a.active{ color:var(--ink) }
+
+/* ── HERO ─────────────────────────────────────────────────────────────── */
+/* Bottom vignette fades to cream instead of navy. */
+[data-theme="light"] .hero::after{
+  background:linear-gradient(to top,
+    rgba(var(--shade-rgb),.88) 0%,
+    rgba(var(--shade-rgb),.55) 38%,
+    rgba(var(--shade-rgb),.18) 72%,
+    transparent 100%);
+}
+
+/* Ghost word — softer pink ramp; on cream the high-saturation top stop
+   reads too loud, so we drop chroma and opacity. */
+[data-theme="light"] .ghost-title{
+  background:linear-gradient(180deg, rgba(var(--pink-rgb),.55) 0%, rgba(var(--pink-rgb),.22) 40%, rgba(var(--pink-rgb),.03) 90%);
+  -webkit-background-clip:text;background-clip:text;
+}
+[data-theme="light"] .ghost-title.muted{
+  background:linear-gradient(180deg, rgba(var(--pink-rgb),.22) 0%, rgba(var(--pink-rgb),.06) 60%, rgba(var(--pink-rgb),0) 100%);
+  -webkit-background-clip:text;background-clip:text;
+}
+
+/* Portrait — drop the dark uplight (would invert the silhouette on cream),
+   keep a single warm pink under-glow. */
+[data-theme="light"] .portrait-photo{
+  filter:drop-shadow(0 26px 50px rgba(var(--pink-rgb),.28))
+         drop-shadow(0 4px 16px rgba(var(--ink-rgb),.08));
+}
+[data-theme="light"] .portrait-bg{
+  background:radial-gradient(60% 90% at 50% 100%, rgba(var(--pink-rgb),.40), transparent 60%);
+}
+
+/* H1 — token-driven color, no shadow on light (would smudge the cream) */
+[data-theme="light"] .h1{
+  color:var(--ink);
+  text-shadow:none;
+}
+
+/* Eyebrow live pill — cream glass with pink ring */
+[data-theme="light"] .eyebrow{
+  background:rgba(var(--pink-rgb),.07);
+  border-color:rgba(var(--pink-rgb),.28);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6);
+}
+
+/* Ghost button — cream glass on cream surface (subtle) */
+[data-theme="light"] .ghost-btn{
+  background:rgba(255,255,255,.55);
+  border-color:rgba(var(--ink-rgb),.16);
+  color:var(--ink);
+}
+[data-theme="light"] .ghost-btn:hover{ border-color:var(--pink); color:var(--pink) }
+
+/* Scroll cue track — darker hairline on cream */
+[data-theme="light"] .scroll-cue-track{ background:rgba(var(--ink-rgb),.14) }
+
+/* Tape stack — keep tape-dark genuinely dark on light bg (intentional
+   contrast — the tapes are a graphic element, not a surface). */
+[data-theme="light"] .tape-dark{
+  background:#1a0e16;
+  color:#f3e8eb;
+  border-color:rgba(var(--ink-rgb),.12);
+}
+[data-theme="light"] .tape{ box-shadow:0 12px 28px rgba(var(--ink-rgb),.18) }
+
+/* ── SECTIONS — neutral surfaces ──────────────────────────────────────── */
+
+/* Status card — softer pink wash on bg-2 */
+[data-theme="light"] .status-card{
+  background:
+    radial-gradient(800px 200px at 0% 0%, rgba(var(--pink-rgb),.14), transparent 60%),
+    linear-gradient(160deg, rgba(var(--pink-rgb),.06), rgba(var(--pink-rgb),0) 55%), var(--bg-2);
+  border-color:rgba(var(--pink-rgb),.22);
+}
+
+/* Stat tiles — white cards on cream */
+[data-theme="light"] .stat{
+  background:rgba(255,255,255,.55);
+}
+[data-theme="light"] .stat:hover{
+  background:rgba(255,255,255,.85);
+  border-color:rgba(var(--pink-rgb),.32);
+}
+
+/* About identity card */
+[data-theme="light"] .about-card{
+  background:linear-gradient(160deg, rgba(var(--pink-rgb),.07), rgba(var(--pink-rgb),0) 60%), rgba(255,255,255,.6);
+  border-color:rgba(var(--ink-rgb),.08);
+}
+[data-theme="light"] .about-card::after{
+  background:radial-gradient(circle,rgba(var(--pink-rgb),.20),transparent 70%);
+}
+
+/* Identity rows — darker hairlines on cream */
+[data-theme="light"] .id-rows{ border-top-color:rgba(var(--ink-rgb),.08) }
+[data-theme="light"] .id-rows li{ border-bottom-color:rgba(var(--ink-rgb),.08) }
+
+/* Chips — cream-on-cream with darker hairline */
+[data-theme="light"] .chip{
+  background:rgba(var(--ink-rgb),.04);
+  border-color:rgba(var(--ink-rgb),.10);
+}
+[data-theme="light"] .chip.pink{
+  background:rgba(var(--pink-rgb),.10);
+  border-color:rgba(var(--pink-rgb),.32);
+  color:var(--pink-soft);
+}
+
+/* Two-column tracks — col-title hairline */
+[data-theme="light"] .col-title{ border-bottom-color:rgba(var(--ink-rgb),.10) }
+
+/* Timeline — dot center matches surface so it reads as a hole, not a chip */
+[data-theme="light"] .t-item::before{
+  background:var(--bg);
+  box-shadow:0 0 0 4px rgba(var(--pink-rgb),.13);
+}
+[data-theme="light"] .gpa-pill{
+  background:rgba(var(--pink-rgb),.10);
+  border-color:rgba(var(--pink-rgb),.32);
+}
+
+/* ── ACHIEVEMENTS ─────────────────────────────────────────────────────── */
+[data-theme="light"] .ach-hero{
+  background:rgba(255,255,255,.55);
+  border-color:rgba(var(--ink-rgb),.08);
+}
+[data-theme="light"] .ach-hero.alt{
+  background:
+    radial-gradient(500px 200px at 100% 0%, rgba(var(--pink-rgb),.14), transparent 60%),
+    linear-gradient(160deg, rgba(var(--pink-rgb),.05), rgba(var(--pink-rgb),0) 60%), rgba(255,255,255,.6);
+  border-color:rgba(var(--pink-rgb),.22);
+}
+[data-theme="light"] .ach-hero:hover{
+  background:rgba(255,255,255,.78);
+  border-color:rgba(var(--pink-rgb),.32);
+}
+[data-theme="light"] .ach-trophy{
+  background:rgba(var(--pink-rgb),.10);
+  border-color:rgba(var(--pink-rgb),.32);
+}
+
+/* Compact rows — pull #fff text down to ink */
+[data-theme="light"] .ach-name{ color:var(--ink) }
+[data-theme="light"] .ach-list{ border-top-color:rgba(var(--ink-rgb),.10) }
+[data-theme="light"] .ach-row{ border-bottom-color:rgba(var(--ink-rgb),.08) }
+[data-theme="light"] .ach-row:hover{
+  background:linear-gradient(90deg, rgba(var(--pink-rgb),.06), transparent 80%);
+}
+
+/* Research */
+[data-theme="light"] .r-body h4{ color:var(--ink) }
+[data-theme="light"] .research-list{ border-top-color:rgba(var(--ink-rgb),.10) }
+[data-theme="light"] .research-row{ border-bottom-color:rgba(var(--ink-rgb),.08) }
+[data-theme="light"] .research-row:hover{
+  background:linear-gradient(90deg, rgba(var(--pink-rgb),.05), transparent 80%);
+}
+[data-theme="light"] .r-grade{
+  box-shadow:0 8px 16px rgba(var(--pink-rgb),.30);
+}
+
+/* ── SKILLS ───────────────────────────────────────────────────────────── */
+[data-theme="light"] .skills{
+  background:linear-gradient(180deg, transparent, rgba(var(--pink-rgb),.04) 40%, transparent);
+}
+[data-theme="light"] .skill-groups{ border-top-color:rgba(var(--ink-rgb),.10) }
+[data-theme="light"] .skill-col header{ border-bottom-color:rgba(var(--ink-rgb),.08) }
+[data-theme="light"] .skill-h{ color:var(--ink) }
+[data-theme="light"] .skill-col ul li:hover{ color:var(--ink) }
+[data-theme="light"] .skill-col ul li::before{
+  box-shadow:0 0 0 3px rgba(var(--pink-rgb),.16);
+}
+[data-theme="light"] .cert-list li b{ color:var(--ink) }
+
+/* ── CONTACT ──────────────────────────────────────────────────────────── */
+[data-theme="light"] .contact-card{
+  background:
+    radial-gradient(700px 400px at 90% 0%, rgba(var(--pink-rgb),.18), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.65), var(--bg-2));
+  border-color:rgba(var(--pink-rgb),.22);
+}
+[data-theme="light"] .contact-card::before{
+  background:radial-gradient(circle,rgba(var(--pink-rgb),.16),transparent 70%);
+}
+[data-theme="light"] .contact-info{ border-top-color:rgba(var(--ink-rgb),.10) }
+[data-theme="light"] .contact-info li{ border-bottom-color:rgba(var(--ink-rgb),.08) }
+
+/* CTA gradient stays vibrant — pink owns this surface */
+[data-theme="light"] .big-cta{
+  box-shadow:
+    0 18px 38px rgba(var(--pink-rgb),.38),
+    inset 0 0 0 1px rgba(255,255,255,.22),
+    inset 0 1px 0 rgba(255,255,255,.28);
+}
+
+/* CTA in nav */
+[data-theme="light"] .cta{
+  box-shadow:
+    0 10px 22px rgba(var(--pink-rgb),.34),
+    inset 0 0 0 1px rgba(255,255,255,.22),
+    inset 0 1px 0 rgba(255,255,255,.28);
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────────────── */
+[data-theme="light"] footer{ border-top-color:rgba(var(--ink-rgb),.08) }
+
+/* ── MARQUEE — keep saturated pink slab, soften the cast shadow ───────── */
+[data-theme="light"] .marquee{
+  box-shadow:0 30px 70px rgba(var(--pink-rgb),.28);
+}

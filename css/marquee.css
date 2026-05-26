@@ -1,0 +1,10 @@
+.marquee{
+  background:var(--pink);
+  transform:rotate(-2deg) translateY(2px);
+  margin:60px -100px;padding:22px 0;overflow:hidden;white-space:nowrap;
+  box-shadow:0 30px 80px rgba(255,77,119,.35);
+  position:relative;z-index:3;
+}
+.marquee-track{display:inline-flex;gap:60px;animation:scroll 30s linear infinite;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:42px;color:#fff;align-items:center;letter-spacing:-.01em}
+.marquee-track .star{font-family:'Plus Jakarta Sans';font-weight:700;opacity:.85}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}

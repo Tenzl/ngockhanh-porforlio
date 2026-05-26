@@ -1,0 +1,104 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Responsive — collapses asymmetric grids to single column below md.
+   ───────────────────────────────────────────────────────────────────────── */
+
+@media (max-width:1100px){
+  /* Nav */
+  .nav-links{display:none}
+  nav.top.scrolled .nav-inner{max-width:480px}
+
+  /* Hero */
+  .hero{min-height:0;padding:8px 0 0}
+  .hero-stage{height:540px}
+  .scroll-cue{display:none}
+  .ghost-wrap{top:20px}
+  .ghost-title{font-size:clamp(64px,14vw,124px)}
+  .hero-portrait{width:520px;height:540px}
+  .portrait-photo{width:500px}
+  .arrow-back{display:none}
+  .tape-stack{
+    right:-200px;top:50px;width:1200px;
+    transform:rotate(-18deg);transform-origin:right top;
+  }
+  .tape{font-size:26px;padding:8px 0}
+  .tape-track{gap:22px}
+  .tape-track .ast{font-size:18px}
+  .squiggle{right:0;bottom:30px;width:200px;height:120px;opacity:.85}
+  .hero-content{position:relative;bottom:auto;padding-top:24px}
+  .h1{font-size:clamp(34px,7vw,52px)}
+
+  /* Sections */
+  section{padding:88px 0}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:18px;margin-bottom:48px}
+  .about-grid,.two-col,.contact-grid{grid-template-columns:1fr;gap:36px}
+  .ach-featured{grid-template-columns:1fr;gap:14px}
+  .skill-groups{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 28px}
+  .research-head{flex-direction:column;align-items:flex-start;gap:14px}
+
+  /* Achievement rows reflow: name + host stacked, rank+when on one line */
+  .ach-row{
+    grid-template-columns:1fr auto;
+    grid-template-areas:
+      "rank  when"
+      "name  name"
+      "host  host";
+    gap:6px 12px;padding:18px 4px;
+  }
+  .ach-rank{grid-area:rank}
+  .ach-when{grid-area:when}
+  .ach-name{grid-area:name;font-size:16px}
+  .ach-host{grid-area:host}
+
+  .research-row{
+    grid-template-columns:38px 1fr;
+    grid-template-areas:
+      "grade body"
+      ".     meta";
+    gap:8px 16px;
+  }
+  .r-grade{grid-area:grade}
+  .r-body{grid-area:body}
+  .r-meta{grid-area:meta;text-align:left;padding-top:4px}
+
+  .contact-card{padding:48px 32px}
+  .big-cta{padding:18px 28px;font-size:15px}
+  .marquee{margin:40px -60px}
+}
+
+@media (max-width:720px){
+  /* Nav */
+  nav.top{top:8px;padding:0 10px}
+  .nav-inner{padding:9px 8px 9px 14px;gap:14px}
+  nav.top.scrolled{top:6px}
+  nav.top.scrolled .nav-inner{max-width:360px;padding:7px 8px 7px 12px}
+  .cta{padding:9px 16px;font-size:13px}
+  nav.top.scrolled .cta{padding:8px 14px;font-size:12.5px}
+
+  /* Hero */
+  .hero{padding-bottom:0}
+  .hero-stage{height:auto;display:flex;flex-direction:column;gap:24px}
+  .hero-portrait{position:relative;left:auto;bottom:auto;transform:none;margin:0 auto;width:340px;height:380px}
+  .portrait-photo{width:340px}
+  .tape-stack{right:-100px;top:40px;width:900px}
+  .tape{font-size:20px}
+  .ghost-wrap{top:6px}
+  .ghost-title{font-size:64px}
+  .hero-content{padding-top:0}
+  .squiggle{display:none}
+
+  /* Sections — denser */
+  section{padding:72px 0}
+  .stats{grid-template-columns:1fr;gap:10px}
+  .skill-groups{grid-template-columns:1fr;gap:28px}
+  .status-card,.about-card{padding:24px}
+  .ach-hero{padding:28px 24px}
+  .id-key{width:72px}
+}
+
+@media (max-width:640px){
+  .wrap{padding:0 22px}
+  .marquee{margin:40px -50px}
+  .stat .num{font-size:34px}
+  .contact-card{padding:36px 22px;border-radius:24px}
+  .ci-item{grid-template-columns:90px 1fr;gap:12px;font-size:14px}
+}

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Khanh — Logistics & Supply Chain Portfolio</title>
+
+  <!-- Theme bootstrap — runs before paint to prevent FOUC.
+       Reads saved preference, falls back to system. Sets data-theme on <html>. -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Styles (loaded in cascade order — theme-light last so it wins) -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/skills.css">
+  <link rel="stylesheet" href="css/marquee.css">
+  <link rel="stylesheet" href="css/contact.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/theme-light.css">
+</head>
+<body>
+
+  <div data-include="partials/nav.html"></div>
+  <div data-include="partials/hero.html"></div>
+  <div data-include="partials/about.html"></div>
+  <div data-include="partials/experience.html"></div>
+  <div data-include="partials/marquee.html"></div>
+  <div data-include="partials/achievements.html"></div>
+  <div data-include="partials/skills.html"></div>
+  <div data-include="partials/contact.html"></div>
+  <div data-include="partials/footer.html"></div>
+
+  <script src="js/partials-loader.js"></script>
+  <script src="js/header-effects.js"></script>
+  <script src="js/scroll-reveal.js"></script>
+  <script src="js/theme-toggle.js"></script>
+</body>
+</html>
